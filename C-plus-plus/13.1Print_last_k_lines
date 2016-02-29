@@ -1,0 +1,34 @@
+//
+//  main.cpp
+//  Print_last_k_lines
+//
+//  Created by Zhihong Ren on 2/25/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include <string>
+using namespace std;
+void Print_Last_K_Lines(int k, string filename){
+    vector<string> results(k);
+    ifstream fin(filename);
+    int size=0;
+    while (fin.good()) {
+        getline(fin,results[size%k]);
+        size++;
+    }
+    int start=size>k? size%k:0;
+    int number=min(k,size);
+    for (int i=0; i<number; i++) {
+        cout<<results[(start+i)%k]<<endl;
+    }
+    
+}
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    Print_Last_K_Lines(10, "test.txt");
+    cout<<"aa"<<endl;
+        return 0;
+}
