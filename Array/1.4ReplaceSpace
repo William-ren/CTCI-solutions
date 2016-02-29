@@ -1,0 +1,36 @@
+//
+//  main.cpp
+//  1.4ReplaceSpace
+//
+//  Created by Zhihong Ren on 2/27/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+#include <string>
+using namespace std;
+void replace_space(char* str,int length ){
+    int spaceCount=0,newLength=0;
+    for (int i=0;i<length; i++) {
+        if(str[i]==' ') spaceCount++;
+    }
+    newLength=spaceCount*2+length;
+    str[newLength]='\0';
+    for (int i=length-1; i>=0; i--) {
+        if (str[i]==' ') {
+            str[newLength-1]='0';
+            str[newLength-2]='2';
+            str[newLength-3]='%';
+            newLength-=3;
+        }
+        else{
+            str[newLength]=str[length];
+            newLength--;
+        }
+    }
+}
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
