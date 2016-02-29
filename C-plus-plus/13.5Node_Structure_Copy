@@ -1,0 +1,37 @@
+//
+//  main.cpp
+//  13.5Node_Structure_Copy
+//
+//  Created by Zhihong Ren on 2/25/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+#include <map>
+using namespace std;
+struct Node{
+    Node* ptr1, *ptr2;
+};
+typedef map<Node*,Node*> NodeMap;
+Node* copy_recursive(Node* cur,NodeMap & nodemap){
+    if(cur==NULL) return NULL;
+    NodeMap::iterator it=nodemap.find(cur);
+    if (it!=nodemap.end()) {
+        return it->second;
+    }
+    Node* node=new Node;
+    nodemap[cur]=node;
+    node->ptr1=copy_recursive(node->ptr1, nodemap);
+    node->ptr2=copy_recursive(node->ptr2, nodemap);
+    return node;
+}
+Node* structure_copy(Node* root){
+    NodeMap nodemap;
+    return copy_recursive(root,nodemap);
+    
+}
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
