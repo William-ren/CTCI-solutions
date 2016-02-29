@@ -1,0 +1,43 @@
+//
+//  main.cpp
+//  2.4Partition
+//
+//  Created by Zhihong Ren on 2/29/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+struct ListNode {
+    int val;
+    ListNode * next;
+};
+ListNode * partition(ListNode * head,int x){
+    ListNode* beforestart=NULL, * afterstart=NULL;
+    ListNode *temp=head;
+    while (temp!=NULL) {
+        ListNode *next=temp->next;
+        if (temp->val<x) {
+            temp->next=beforestart;
+            beforestart=temp;
+        }
+        else{
+            temp->next=afterstart;
+            afterstart=temp;
+        }
+        temp=next;
+    }
+    if (beforestart==NULL) {
+        return afterstart;
+    }
+    head=beforestart;
+    while (beforestart->next!=NULL) {
+        beforestart=beforestart->next;
+    }
+    beforestart->next=afterstart;
+    return head;
+}
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
