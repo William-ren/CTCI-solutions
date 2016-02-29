@@ -1,0 +1,56 @@
+//
+//  main.cpp
+//  13.8Smart_Pointer
+//
+//  Created by Zhihong Ren on 2/25/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+template <class T> class SmartPointer{
+public:
+    SmartPointer(T * object){
+        obj=object;
+        ref_count=(unsigned*)malloc(sizeof(unsigned))
+        *ref_count=1;
+    }
+    SmartPointer(SmartPointer<T> & ptr ){
+        obj=ptr.obj;
+        ref_count=ptr.ref_count;
+        (*ref_count)++;
+        
+    }
+    SmartPointer<T>&operator=(SmartPointer<T> & ptr){
+        if(this==&ptr) return *this;
+        if (*ref_count>0) {
+            remove();
+        }
+        obj=ptr.obj;
+        ref_count=ptr.ref_count;
+        ++(*ref_count);
+    }
+    T getValue(){
+        return *obj;
+    }
+    ~SmartPointer(){
+        remove();
+    }
+protected:
+    void remove(){
+        --(*ref_count);
+        if (*ref_count==0) {
+            delete obj;
+            free(ref_count);
+        }
+        obj=NULL;
+        ref_count=NULL;
+    }
+    T* obj;
+    unsigned *ref_count;
+};
+
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
