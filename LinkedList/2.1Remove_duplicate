@@ -1,0 +1,35 @@
+//
+//  main.cpp
+//  2.1Remove_duplicate
+//
+//  Created by Zhihong Ren on 2/29/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+using namespace std;
+struct ListNode{
+    int val;
+    ListNode * next;
+};
+void remove_duplicate(ListNode* root){
+    if (root==NULL) return;
+    ListNode * start, *current=root;
+    
+    while (current!=NULL) {
+        start=current;
+        while (start->next!=NULL) {
+            if (start->next->val==current->val) {
+                start->next=start->next->next;
+            }
+            else start=start->next;
+        }
+        current=current->next;
+    }
+    
+}
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
