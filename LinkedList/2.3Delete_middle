@@ -1,0 +1,25 @@
+//
+//  main.cpp
+//  2.3Delete_middle
+//
+//  Created by Zhihong Ren on 2/29/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+struct ListNode{
+    int val;
+    ListNode * next;
+};
+void delete_middle(ListNode * middle){
+    if (middle==NULL||middle->next==NULL) {
+        return;
+    }
+    middle->val=middle->next->val;
+    middle->next=middle->next->next;
+}
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
