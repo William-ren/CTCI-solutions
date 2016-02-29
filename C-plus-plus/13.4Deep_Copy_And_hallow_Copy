@@ -1,0 +1,24 @@
+//
+//  main.cpp
+//  Deep_Copy_And_hallow_Copy
+//
+//  Created by Zhihong Ren on 2/25/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+struct Test{
+    char * ptr;
+};
+void deep_copy(Test &src,Test & des){
+    des.ptr=src.ptr;
+}
+void shallow_copy(Test &src,Test & des){
+    des.ptr=(char*)malloc(strlen(src.ptr)+1);
+    strcmp(src.ptr, des.ptr);
+}
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
