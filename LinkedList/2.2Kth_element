@@ -1,0 +1,32 @@
+//
+//  main.cpp
+//  2.2Kth_element
+//
+//  Created by Zhihong Ren on 2/29/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+struct ListNode{
+    int val;
+    ListNode * next;
+};
+ListNode * kth_element(ListNode * root,int k){
+    if (root==NULL||k<0) return NULL;
+    ListNode * fast=root, *slow=root;
+    int counter=0;
+    while (counter!=k&&fast!=NULL) {
+        fast=fast->next;
+    }
+    if (counter!=k) return NULL;
+    while (fast!=NULL) {
+        fast=fast->next;
+        slow=slow->next;
+    }
+    return slow;
+}
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
