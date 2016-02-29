@@ -1,0 +1,30 @@
+//
+//  main.cpp
+//  1.2reverse_string
+//
+//  Created by Zhihong Ren on 2/27/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+using namespace std;
+void reverse_string(char * str){
+    if (str==NULL) {
+        return ;
+    }
+    char* end=str;
+    while (*end) {
+        end++;
+    }
+    --end;
+    while (str<end) {
+        char tmp=*end;
+        *end--=*str;
+        *str++=tmp;
+    }
+}
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
