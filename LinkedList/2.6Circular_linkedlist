@@ -1,0 +1,38 @@
+//
+//  main.cpp
+//  2.6Circular_linkedlist
+//
+//  Created by Zhihong Ren on 2/29/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+struct ListNode{
+    int val;
+    ListNode* next;
+    ListNode(int x): val(x),next(NULL){}
+};
+ListNode * circular_linkedlist (ListNode * head){
+    ListNode * fast=head, *slow=head;
+    while (fast!=NULL&&fast->next!=NULL) {
+        fast=fast->next->next;
+        slow=slow->next;
+        if (fast==slow) {
+            break;
+        }
+    }
+    if (fast==NULL||fast->next==NULL) {
+        return NULL;
+    }
+    ListNode* runner=head;
+    while (runner!=slow) {
+        slow=slow->next;
+        runner=runner->next;
+    }
+    return runner;
+}
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
