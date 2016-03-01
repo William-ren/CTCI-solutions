@@ -1,0 +1,45 @@
+//
+//  main.cpp
+//  4.1IsBalanced
+//
+//  Created by Zhihong Ren on 3/1/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+using namespace std;
+struct TreeNode{
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode(int n):val(n),left(NULL),right(NULL){}
+};
+int checkHeight(TreeNode* root){
+    if (root==NULL) {
+        return 0;
+    }
+    int leftHeight=checkHeight(root->left);
+    int rightHeight=checkHeight(root->right);
+    if (leftHeight==-1||rightHeight==-1) {
+        return -1;
+    }
+    int diff=abs(leftHeight-rightHeight);
+    if (diff>1) {
+        return -1;
+    }
+    else return max(leftHeight,rightHeight);
+    
+}
+bool isBalanced(TreeNode* root){
+    if (checkHeight(root)==-1) {
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
