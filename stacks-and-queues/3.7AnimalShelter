@@ -1,0 +1,89 @@
+//
+//  main.cpp
+//  3.7AnimalShelter
+//
+//  Created by Zhihong Ren on 3/1/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+#include <string>
+#include <queue>
+using namespace std;
+class animal{
+private:
+    int order;
+protected:
+    string name;
+public:
+     animal(string n){
+        name=n;
+    }
+    void setOrder(int ord){
+        order=ord;
+    }
+    int getOrder(){
+        return order;
+    }
+    bool isOlderThan(animal a){
+        return this->order<a.order;
+    }
+    string type(){
+        return name;
+    }
+};
+class animalqueue{
+private:
+    queue<animal*> dogs;
+    queue<animal*> cats;
+    int order;
+public:
+    animalqueue(int ord){
+        order=ord;
+    }
+    void pushA(animal *a){
+        a->setOrder(order);
+        order++;
+        if (a->type()=="dog") {
+            dogs.push(a);
+        }
+        else {
+            cats.push(a);
+        }
+    }
+    animal* dequeue(){
+        if (dogs.size()==0) {
+            return dequeuecats();
+        }
+        if (cats.size()) {
+            return dequeuedogs();
+        }
+        animal* dog=dogs.front();
+        animal* cat=cats.front();
+        if (dog->isOlderThan(*cat)) {
+            dogs.pop();
+            return dog;
+        }
+        else{
+            cats.pop();
+            return cat;
+        }
+    }
+    animal* dequeuedogs(){
+        animal* dog=dogs.front();
+        dogs.pop();
+        return dog;
+    }
+    animal* dequeuecats(){
+        animal* cat=cats.front();
+        cats.pop();
+        return cat;
+    }
+    
+};
+
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
