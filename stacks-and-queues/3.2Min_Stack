@@ -1,0 +1,49 @@
+//
+//  main.cpp
+//  3.2Min_Stack
+//
+//  Created by Zhihong Ren on 2/29/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+#include <stack>
+using namespace std;
+class minStack{
+public:
+    void push(int val){
+        mystack.push(val);
+        if (minNum.empty()) {
+            minNum.push(val);
+        }
+        else {
+            if (val<=minNum.top()) {
+                minNum.push(val);
+            }
+        }
+        
+    }
+    void pop(){
+        if (mystack.empty()) {
+            return;
+        }
+        if (mystack.top()==minNum.top()) {
+            minNum.pop();
+        }
+        mystack.pop();
+    }
+    int minValue(){
+        if (minNum.empty()) {
+            return INT_MIN;
+        }
+        else return minNum.top();
+    }
+private:
+    stack<int> mystack;
+    stack<int> minNum;
+};
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
