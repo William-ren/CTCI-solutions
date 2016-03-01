@@ -1,0 +1,38 @@
+//
+//  main.cpp
+//  2.5Sum_linkedlist
+//
+//  Created by Zhihong Ren on 2/29/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+struct ListNode{
+    int val;
+    ListNode * next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
+ListNode * sum(ListNode * p1, ListNode * p2, int carry){
+    
+    ListNode* result=new ListNode(carry);
+    int value=carry;
+    if (p1!=NULL) {
+        value+=p1->val;
+    }
+    if(p2!=NULL){
+        value+=p2->val;
+    }
+    result->val=value/10;
+    carry=value%10;
+    if(p1!=NULL||p2!=NULL){
+        ListNode * next= sum(p1==NULL?NULL:p1->next,p2==NULL?NULL:p2->next,carry);
+        result->next=next;
+    }
+    return result;
+
+}
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
