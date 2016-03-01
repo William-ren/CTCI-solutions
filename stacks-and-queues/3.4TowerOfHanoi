@@ -1,0 +1,41 @@
+//
+//  main.cpp
+//  3.4TowerOfHanoi
+//
+//  Created by Zhihong Ren on 3/1/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+#include <stack>
+using namespace std;
+class Tower{
+private:
+    stack<int> disks;
+    int index;
+public:
+    Tower(int i){
+        index=i;
+    }
+    int size(){
+        return disks.size();
+    }
+    void addDisk(int d){
+        disks.push(d);
+    }
+    void moveTopTo(Tower dest){
+        int top=disks.top();
+        disks.pop();
+        dest.addDisk(top);
+    }
+    void moveDisks(int n,Tower dest,Tower buffer){
+        moveDisks(n-1, buffer, dest);
+        moveTopTo(dest);
+        buffer.moveDisks(n-1,dest,*this);
+    }
+};
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
