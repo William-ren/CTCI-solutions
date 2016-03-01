@@ -1,0 +1,32 @@
+//
+//  main.cpp
+//  3.6SortStacks
+//
+//  Created by Zhihong Ren on 3/1/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+#include <stack>
+using namespace std;
+stack<int> sort_stack(stack<int> & orignal){
+    if (orignal.size()==0) {
+        return orignal;
+    }
+    stack<int> buffer;
+    while (!orignal.empty()) {
+        int temp=orignal.top();
+        orignal.pop();
+        while (!buffer.empty()&&buffer.top()>temp) {
+            orignal.push(buffer.top());
+            buffer.pop();
+        }
+        buffer.push(temp);
+    }
+    return buffer;
+}
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
