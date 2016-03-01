@@ -27,7 +27,7 @@ int checkHeight(TreeNode* root){
     if (diff>1) {
         return -1;
     }
-    else return max(leftHeight,rightHeight);
+    else return max(leftHeight,rightHeight)+1;
     
 }
 bool isBalanced(TreeNode* root){
