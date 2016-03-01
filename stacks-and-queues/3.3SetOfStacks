@@ -1,0 +1,68 @@
+//
+//  main.cpp
+//  3.3SetOfStacks
+//
+//  Created by Zhihong Ren on 3/1/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+#include <stack>
+#include <vector>
+using namespace std;
+class SetOfStacks{
+    vector<stack<int>> stacks;
+    int capacity;
+    SetOfStacks(int capacity){
+        this->capacity=capacity;
+    }
+    void push(int value){
+        if (stacks.size()==0||stacks[stacks.size()-1].size()==capacity) {
+            stack<int> temp;
+            temp.push(value);
+            stacks.push_back(temp);
+        }
+        else{
+            stacks[stacks.size()-1].push(value);
+        }
+    }
+    void pop(){
+        if (stacks.size()==0) {
+            return ;
+        }
+        else{
+            stacks[stacks.size()-1].pop();
+            if (stacks[stacks.size()-1].size()==0) {
+                stacks.pop_back();
+            }
+        }
+    }
+    void popAt(int index){
+        if (index>=stacks.size()) {
+            return;
+        }
+        leftShift(index,true);
+    }
+    int leftShift(int index, bool flag){
+        int remove_item;
+        if (flag==true) {
+            remove_item=stacks[index].top();
+            stacks[index].pop();
+        }
+        else remove_item=stacks[index].removeBottom; // need to modify the stack data structure;
+        if (stacks[index].empty()) {
+            stacks.erase(stacks.begin()+index);
+        }
+        else if(stacks.size()>index+1){
+            int temp_item=leftShift(index+1, false);
+            stacks[index].push(temp_item);
+        }
+        return remove_item;
+    }
+
+};
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
