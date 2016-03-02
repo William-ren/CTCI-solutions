@@ -1,0 +1,45 @@
+//
+//  main.cpp
+//  4.6FindNext
+//
+//  Created by Zhihong Ren on 3/1/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+using namespace std;
+struct TreeNode{
+    int val;
+    TreeNode * parent;
+    TreeNode * left;
+    TreeNode * right;
+    TreeNode(int n): val(n),left(NULL),right(NULL){}
+};
+TreeNode* leftMost(TreeNode* root){
+    if (root==NULL) {
+        return NULL;
+    }
+    TreeNode* temp=root;
+    while (temp->left!=NULL) {
+        temp=temp->left;
+    }
+    return temp;
+}
+TreeNode * findNext(TreeNode * node) {
+    if(node==NULL) return NULL;
+    if (node->right!=NULL) {
+        return leftMost(node->right);
+    }
+    TreeNode * temp=node->parent;
+    TreeNode * cur=node;
+    while (temp!=NULL&&temp->left!=cur) {
+        cur=temp;
+        temp=temp->parent;
+    }
+    return temp;
+}
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
