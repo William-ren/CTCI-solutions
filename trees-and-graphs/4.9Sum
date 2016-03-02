@@ -1,0 +1,46 @@
+//
+//  main.cpp
+//  4.9Sum
+//
+//  Created by Zhihong Ren on 3/1/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+#include <iostream>
+#include <vector>
+using namespace std;
+struct TreeNode{
+    int val;
+    TreeNode * left;
+    TreeNode * right;
+    TreeNode(int n): val(n),left(NULL),right(NULL){}
+};
+void sumThelper(int T,TreeNode * root,vector<TreeNode*> &result,vector<vector<TreeNode*>> &results){
+    if (root==NULL) {
+        return;
+    }
+    result.push_back(root);
+    int sum=0;
+    for (int i=result.size()-1; i>=0; i--) {
+        sum+=result[i]->val;
+        if (sum==T) {
+            results.push_back(vector<TreeNode*>(result.begin()+i,result.end()));
+        }
+    }
+    sumThelper(T, root->left, result, results);
+    sumThelper(T, root->right, result, results);
+    result.pop_back();
+}
+vector<vector<TreeNode*>> sumT(int T,TreeNode* root){
+    vector<vector<TreeNode*>> results;
+    if (root==NULL) {
+        return results;
+    }
+    vector<TreeNode*> result;
+    sumThelper(T,root,result,results);
+    return results;
+}
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
