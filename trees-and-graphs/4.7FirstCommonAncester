@@ -1,0 +1,56 @@
+//
+//  main.cpp
+//  4.7FirstCommonAncester
+//
+//  Created by Zhihong Ren on 3/1/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+using namespace std;
+struct TreeNode{
+    int val;
+    TreeNode * left;
+    TreeNode * right;
+    TreeNode(int n): val(n),left(NULL),right(NULL){}
+};
+class result{
+public:
+    TreeNode * node;
+    bool isAncestor;
+    result(TreeNode* root,bool flag):node(root),isAncestor(flag){};
+};
+
+result* FCA(TreeNode* n1, TreeNode* n2, TreeNode* root){
+    if (root==NULL) {
+        return new result(NULL,false);
+    }
+    result* left=FCA(n1, n2, root->left);
+    if (left->isAncestor==true) {
+        return left;
+    }
+    result* right=FCA(n1, n2, root->right);
+    if (right->isAncestor==true) {
+        return right;
+    }
+    if (left->node!=NULL&&right->node!=NULL) {
+        return new result(root,true);
+    }
+    else if(root==n1||root==n2){
+        bool isAncestor=(left->node!=NULL||right->node!=NULL)? true:false;
+        return new result(root,isAncestor);
+    }
+    else {
+        return new result (left->node==NULL?left->node:right->node,false);
+    }
+
+}
+TreeNode* FindCommonAncestor (TreeNode* root,TreeNode *n1, TreeNode *n2){
+    result* res=FCA(n1, n2, root);
+    return res->isAncestor?res->node:NULL;
+}
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
