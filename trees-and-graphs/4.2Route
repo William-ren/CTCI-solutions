@@ -1,0 +1,49 @@
+//
+//  main.cpp
+//  4.2Route
+//
+//  Created by Zhihong Ren on 3/1/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+#include <queue>
+#define VISTED 1;
+#define UNVISTED 0;
+using namespace std;
+struct node {
+    int val;
+    int state;
+    node* next;
+    node(int n):val(n),state(0),next(NULL){}
+};
+bool isRoute(Graph g, node* start, node* end){
+    if (g==NULL||start==NULL||end==NULL) {
+        return false;
+    }
+    start->state=VISTED;
+    queue<node*> myqueue;
+    myqueue.push(start);
+    while (!myqueue.empty()) {
+        node * temp =myqueue.front();
+        myqueue.pop();
+        if (temp!=NULL) {
+            for(auto node: temp->getAdjacent){
+                if (node.state==UNVISTED) {
+                    if (node==end) {
+                        return true;
+                    }
+                    node.state=VISTED;
+                    myqueue.push(node);
+                }
+ 
+            }
+        }
+    }
+    return false;
+}
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
