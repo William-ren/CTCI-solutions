@@ -1,0 +1,40 @@
+//
+//  main.cpp
+//  4.3CreationBST
+//
+//  Created by Zhihong Ren on 3/1/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+#include <vector>
+using namespace std;
+struct TreeNode{
+    int val;
+    TreeNode * left;
+    TreeNode * right;
+    TreeNode(int n): val(n),left(NULL),right(NULL){}
+};
+TreeNode* creationBSThelper(vector<int>& nums,int start, int end){
+    if (start>end) {
+        NULL;
+    }
+    if (start==end) {
+        return new TreeNode(nums[start]);
+    }
+    int mid=(start+end)/2;
+    TreeNode* root=new TreeNode(nums[mid]);
+    root->left=creationBSThelper(nums, start, mid-1);
+    root->right=creationBSThelper(nums, mid+1, end);
+    return root;
+}
+TreeNode* creationBST(vector<int> & nums){
+    int size= nums.size();
+    if (size==0) return NULL;
+    return creationBSThelper(nums,0,size-1);
+}
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
