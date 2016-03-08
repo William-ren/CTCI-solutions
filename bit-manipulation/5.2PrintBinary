@@ -1,0 +1,38 @@
+//
+//  main.cpp
+//  5.2PrintBinary
+//
+//  Created by Zhihong Ren on 3/7/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+#include <string>
+using namespace std;
+string printBinanr(double num){
+    if (num>=1||num<=0) {
+        return "ERROR";
+    }
+    double m=num;
+    string result="0.";
+    while (m>0) {
+        if (result.size()>32) {
+            return "ERROR";
+        }
+        int r=m*2;
+        if (r>=1) {
+            result+='1';
+            m=r-1;
+        }
+        else {
+            result+='0';
+            m=r;
+        }
+    }
+    return result;
+}
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
