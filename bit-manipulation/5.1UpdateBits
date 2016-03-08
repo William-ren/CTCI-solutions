@@ -1,0 +1,24 @@
+//
+//  main.cpp
+//  5.1UpdateBits
+//
+//  Created by Zhihong Ren on 3/7/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+using namespace std;
+int updateBits( int m, int& n, int i, int j){
+    int allones = ~0;
+    int left = allones << (j+1);
+    int right = (1<<i)-1;
+    int mask = left|right;
+    n&=mask;
+    int m_shifted=m<<i;
+    return n|m_shifted;
+}
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n";
+    return 0;
+}
