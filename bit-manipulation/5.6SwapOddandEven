@@ -1,0 +1,18 @@
+//
+//  main.cpp
+//  5.6SwapOddandEven
+//
+//  Created by Zhihong Ren on 3/29/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+using namespace std;
+int swapOddandEven(int a, int b){
+    int c = a^b,count=0;
+    while (c!=0) {
+        c&=c-1;
+        count++;
+    }
+    return count;
+}
