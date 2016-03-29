@@ -1,0 +1,37 @@
+//
+//  main.cpp
+//  5.7findMissing
+//
+//  Created by Zhihong Ren on 3/29/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+#include <vector>
+using namespace std;
+int findMissing(vector<int>& nums, int col){
+    if (col>=32) {
+        return 0;
+    }
+    vector<int> onebits,zerobits;
+    for(int i=0;i<nums.size();i++){
+        if ((nums[i]&1)==1) {
+            onebits.push_back(nums[i]);
+        }
+        else{
+            zerobits.push_back(nums[i]);
+        }
+    }
+    if (onebits.size()<zerobits.size()) {
+        int result = findMissing(onebits, col+1);
+        return (result<<1)|0;
+    }
+    else{
+        int result= findMissing(zerobits, col+1);
+        return (result<<1)|1;
+    }
+    
+}
+int findMissing( vector<int> & nums){
+    return findMissing(nums,0);
+}
