@@ -1,0 +1,41 @@
+//
+//  main.cpp
+//  5.8DrawLine
+//
+//  Created by Zhihong Ren on 3/29/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+#include <vector>
+using namespace std;
+typedef unsigned char BYTE;
+void drawline(BYTE* screen, int width, int x1, int x2, int y){
+    int start_offset = x1%8;
+    int first_full_byte=x1/8;
+    if (start_offset!=0) {
+        first_full_byte++;
+    }
+    int end_offset = x2%8;
+    int last_full_byte = x2/8;
+    if (end_offset!=7) {
+        last_full_byte--;
+    }
+    for (int i=first_full_byte; i<=last_full_byte; i++) {
+        screen[i+y*(width/8)]=0xFF;
+    }
+    BYTE start_mask = (BYTE) (0xFF>>start_offset);
+    BYTE end_mask = (BYTE) ~(0xFF>>(end_offset+1));
+    if (x1/8==x2/8) {
+        BYTE mask = start_mask & end_mask;
+        screen[(width/8)*y+x1/8]|=mask;
+    }
+    else {
+        if (start_offset!=0) {
+            screen[(width/8)*y+(x1/8)] |= start_mask;
+        }
+        if (end_offset!=7) {
+            screen[(width/8)*y+(x2/8)] |= end_mask;
+        }
+    }
+}
