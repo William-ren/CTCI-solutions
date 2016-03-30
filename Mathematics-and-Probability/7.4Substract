@@ -1,0 +1,22 @@
+//
+//  main.cpp
+//  7.4Substract
+//
+//  Created by Zhihong Ren on 3/29/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+using namespace std;
+int Negate( int num) {
+    int d = num<0 ? 1:-1;
+    int result = 0;
+    while (num!=0) {
+        result+=d;
+        num+=d;
+    }
+    return result;
+}
+int minus (int a, int b){
+    return a + Negate(b);
+}
