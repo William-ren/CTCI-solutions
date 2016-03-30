@@ -1,0 +1,27 @@
+//
+//  main.cpp
+//  7.3Line
+//
+//  Created by Zhihong Ren on 3/29/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+class line {
+private:
+    static double epsilon ;
+    double slope;
+    double intercept;
+    
+public:
+    line(double s, double i): slope(s), intercept(i){
+        epsilon = 0.00001;
+    };
+    bool intersect (line Line2){
+        return abs(slope-Line2.slope)>epsilon || abs(intercept-Line2.intercept)<epsilon;
+
+    }
+    
+};
