@@ -1,0 +1,32 @@
+//
+//  main.cpp
+//  7.4Multiplication
+//
+//  Created by Zhihong Ren on 3/30/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+using namespace std;
+int Negate( int num) {
+    int d = num<0 ? 1:-1;
+    int result = 0;
+    while (num!=0) {
+        result+=d;
+        num+=d;
+    }
+    return result;
+}
+int multiply ( int a , int b){
+    if(a<b) {
+        return multiply(b, a);
+    }
+    int sum=0;
+    for (int i = abs(b); i>0; i--) {
+        sum+=a;
+    }
+    if (b<0) {
+        sum=Negate(sum);
+    }
+    return sum;
+}
