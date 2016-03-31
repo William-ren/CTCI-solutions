@@ -1,0 +1,94 @@
+//
+//  main.cpp
+//  7.6FindBestLine
+//
+//  Created by Zhihong Ren on 3/30/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+#include <cmath>
+#include <vector>
+#include <unordered_map>
+using namespace std;
+struct Point {
+    double x;
+    double y;
+    Point(double a, double b): x(a),y(b){};
+};
+class Line {
+public:
+    const double epsilon = 0.00001;
+    double slope;
+    double intercept;
+    bool infinite_slope;
+    Line(double s, double i ) :slope(s), intercept(i),infinite_slope(false){};
+    Line (Point *start, Point* end){
+        if((start->x-end->x)>epsilon){
+            slope = (start->y-end->y)/(start->x-end->x);
+            intercept = start->y-slope*start->x;
+        }
+        else {
+            infinite_slope = true;
+            intercept = start->x; // x-axis intercept
+        }
+    }
+    const double floorToNearestEpsilon(double d) {
+        int r = (int)(d/epsilon);
+        return ((double)r)*epsilon;
+    }
+    bool isEqual(double a , double b){
+        return (abs(a-b))<=epsilon;
+    }
+    bool isEqual (Line * other){
+        if(other->slope==this->slope && other->intercept == this-> intercept && other->infinite_slope == this->infinite_slope)
+            return true;
+        return false;
+    }
+};
+int countEqualLines(vector<Line*> & lines, Line* line){
+    if(line ==NULL) return 0;
+    int count =0;
+    for (Line* line : lines ) {
+        if(line->isEqual(line)) count++;
+    }
+    return count;
+}
+
+void insertLine(unordered_map<double, vector<Line*>>& lineBySlope, Line* line){
+    double key = line->floorToNearestEpsilon(line->slope);
+    vector<Line*> lines;
+    if (lineBySlope.find(key)==lineBySlope.end()) {
+        lines.push_back(line);
+        lineBySlope[key]=lines;
+    }
+    else {
+        lineBySlope[key].push_back(line);
+    }
+}
+
+int countEqualLines(unordered_map<double, vector<Line*>>& lineBySlope, Line* line){
+    double key = line->floorToNearestEpsilon(line->slope);
+    double eps = line->epsilon;
+    int count = countEqualLines(lineBySlope[key], line) + countEqualLines(lineBySlope[key-eps], line)+ countEqualLines(lineBySlope[key+eps], line);
+    
+    return count;
+    
+}
+
+Line* findBestLine(vector<Point*> & points){
+    Line *BestLine = NULL;
+    int bestCount=0;
+    unordered_map<double, vector<Line*>> lineBySlope;
+    for (int i = 0; i<points.size(); i++) {
+        for (int j=i+1; j<points.size(); j++) {
+            Line * line = new Line(points[i],points[j]);
+            insertLine(lineBySlope,line);
+            int count = countEqualLines (lineBySlope, line);
+            if (count>bestCount) {
+                BestLine = line;
+            }
+        }
+    }
+    return BestLine;
+}
