@@ -1,0 +1,77 @@
+//
+//  main.cpp
+//  7.5Square
+//
+//  Created by Zhihong Ren on 3/30/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+#include <cmath>
+#include <vector>
+using namespace std;
+struct Point {
+    double x;
+    double y;
+    Point(double a, double b): x(a),y(b){};
+};
+struct Line {
+    Point start;
+    Point end;
+    Line(Point s, Point e) :start(s), end(e){};
+};
+class Square{
+private:
+    double left, right, top, bottom, size;
+    Point middle () {
+        return *new Point((this->left+this->right)/2.0, (this->top+this->bottom)/2.0);
+    }
+    Point extend (Point mid1, Point mid2, int size){
+        double xdir = mid1.x <mid2.x ? -1:1;
+        double ydir = mid1.y < mid2.y ? -1:1;
+        if (mid1.x == mid2.x) {
+            return *new Point(mid1.x, mid1.y+ydir*size/2.0);
+        }
+        double slope = (mid2.y-mid1.y)/(mid2.x-mid1.x);
+        
+        double x1,y1;
+        
+        if (abs(slope)==1) {
+            return *new Point(mid1.x + xdir*size/2.0, mid1.y+ydir*size/2.0);
+        }
+        else if (abs(slope)<1){
+            x1 = mid1.x + xdir*size/2.0;
+            y1 = mid1.y-slope*(mid1.x-x1);
+            
+        }
+        else {
+            y1 = mid1.y + ydir*size/2.0;
+            x1 = (y1-mid1.y)/slope + mid1.x;
+        }
+        return *new Point(x1,y1);
+    }
+    
+    Line cut (Square * other){
+        vector<Point> points;
+        Point p1 = extend(this->middle(), other->middle(), this->size);
+        Point p2 = extend(this->middle(), other->middle(), -1*this->size);
+        points.push_back(p2);
+        Point p3 = extend(other->middle(), this->middle(), this->size);
+        points.push_back(p3);
+        Point p4 = extend(other->middle(), this->middle(), -1*this->size);
+        points.push_back(p4);
+        Point start = p1;
+        Point end = p1;
+        for (int i=0; i<3; i++) {
+            if((points[i].x<start.x) || (points[i].x==start.x && points[i].y<start.y)){
+                start = points[i];
+            }
+            if((points[i].x>end.x ) || ( points[i].x ==end.x && points[i].y> end.y)){
+                end = points[i];
+            }
+        }
+        return *new Line(start,end);
+        
+    }
+    
+};
