@@ -1,0 +1,91 @@
+//
+//  main.cpp
+//  8.1CardGame
+//
+//  Created by Zhihong Ren on 4/9/16.
+//  Copyright © 2016 Zhihong Ren. All rights reserved.
+//
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+enum Suit{
+    Club, Diamond, Heart, Spade
+    
+};
+class Card {
+private:
+    bool availiable;
+protected:
+    int faceValue;
+    Suit suit;
+public:
+    Card(int c, Suit s){
+        faceValue=c;
+        suit=s;
+        availiable=true;
+    }
+    int getValue(){
+        return faceValue;
+    }
+    Suit getSuit(){
+        return suit;
+    }
+    bool isAvailiable(){
+        return availiable;
+    }
+    void markUnavailiable(){
+        availiable=false;
+    }
+    void markAvailiable(){
+        availiable=true;
+    }
+};
+template <typename T>
+class hand{
+protected:
+    vector<T> cards;
+public:
+    int score(){
+        int score =0;
+        for (T t: cards) {
+            score+= t.getValue();
+        }
+        return score;
+    }
+    void addCard(T c){
+        cards.push_back(c);
+    }
+};
+template <typename T>
+class Deck{
+private:
+    vector<T> cards;
+    int dealtIndex;
+public:
+     Deck(){
+         dealtIndex=0;
+     }
+    void setDeckofCards(vector<T> deckofCards){
+        
+    }
+    void shuffle(){
+        
+    }
+    int remainCards(){
+        return cards.size()-dealtIndex;
+    }
+    T dealcard(){
+        ...
+    }
+    vector<T> dealHand(int number){
+        ...
+    }
+    
+};
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << Spade;
+    return 0;
+}
